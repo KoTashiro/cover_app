@@ -1,0 +1,6 @@
+h1 オーダーの新規登録
+
+.nav.justify-content-end
+  = link_to '一覧', orders_path, class: 'nav-link'
+
+= render partial: 'form', locals: { order: @order}

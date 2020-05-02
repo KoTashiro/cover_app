@@ -1,0 +1,6 @@
+h1 オーダーの編集
+
+.nav.justify-content-end
+  = link_to '一覧', orders_path, class: 'nav-link'
+
+= render partial: 'form', locals: { order: @order }

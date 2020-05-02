@@ -1,0 +1,19 @@
+h1 タスク一覧
+
+= link_to '新規登録', new_order_path, class: 'btn btn-primary'
+
+.mb-3
+table.table.table-hover
+  thead.thead-default
+    tr
+      th = Order.human_attribute_name(:name)
+      th = Order.human_attribute_name(:created_at)
+      th
+  tbody
+    - @orders.each do |order|
+      tr
+        td = link_to order.name, order
+        td = order.created_at
+        td
+            = link_to '編集', edit_order_path(order), class: 'btn btn-primary mr-3'
+            = link_to '削除', order , method: :delete, data: { confirm: "オーダー「#{order.name}」を削除します。よろしいですか？"}, class: 'btn btn-danger'

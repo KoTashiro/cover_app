@@ -1,0 +1,23 @@
+h1  オーダーの詳細
+
+.nav.justify-content-end
+  = link_to '一覧', orders_path, class: 'nav-link'
+table.table.table-hover
+  tbody
+    tr
+      th = Order.human_attribute_name(:id)
+      td = @order.id
+    tr
+      th = Order.human_attribute_name(:name)
+      td = @order.name
+    tr
+      th = Order.human_attribute_name(:description)
+      td = simple_format(h(@order.description), {}, sanitize: false, wrapper_tag: "div" )
+    tr
+      th = Order.human_attribute_name(:created_at)
+      td = @order.created_at
+    tr
+      th = Order.human_attribute_name(:updated_at)
+      td = @order.updated_at
+= link_to '編集', edit_order_path, class: 'btn btn-primary mr-3'
+= link_to '削除', @order, method: :delete, data: { confirm: "タスク「#{@order.name}」を削除します。よろしいですか？"} ,class:'btn btn-danger'
