@@ -18,8 +18,6 @@ html
       nav
         ul.nav.navbar-nav.navbar-right
           - if current_user
-            li = link_to '新規受付', new_order_path(current_user.id), class: 'nav-link m0'
-            li = link_to 'ユーザ情報更新', edit_admin_user_path(current_user.id), class: 'nav-link m0'
             li = link_to 'ログアウト', logout_path, method: :delete, class: 'nav-link m-0'
           - else
             li = link_to 'ログイン', login_path, class: 'nav-link m-0'
