@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
-  skip_before_action :login_required
-  # before_action :require_admin
+  skip_before_action :login_required, only: [:new, :create]
+  # before_action :require_admin, only: [:show, :edit, :update, :destroy]
   def new
     @user = User.new
   end
@@ -32,7 +32,8 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update(user_params)
-      redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を更新しました。"
+      # redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を更新しました。"
+      redirect_to orders_path, notice: "ユーザー「#{@user.name}」を更新しました。"
     else
       render :edit
     end
@@ -41,7 +42,8 @@ class Admin::UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to admin_users_url, notice: "ユーザー「#{@user.name}」を削除しました."
+    # redirect_to admin_users_url, notice: "ユーザー「#{@user.name}」を削除しました."
+    redirect_to orders_path, notice: "ユーザー「#{@user.name}」を削除しました."
   end
 
   private
