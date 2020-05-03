@@ -1,7 +1,8 @@
 h1 ユーザー登録
 
 - if current_user
-  .nav.justify-content-end
-    = link_to '一覧', admin_users_path, class: 'nav-link'
+  - if current_user.admin?
+    .nav.justify-content-end
+      = link_to '一覧', admin_users_path, class: 'nav-link'
 
 = render partial: 'form', locals: { user: @user }
