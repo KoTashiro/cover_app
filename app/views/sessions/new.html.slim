@@ -7,4 +7,5 @@ h1 ログイン
   .form-group
     = f.label :password, 'パスワード'
     = f.password_field :password, class: 'form-control', id: 'session_password'
-  = f.submit 'ログインする', class: 'btn btn-primary'
+  = f.submit 'ログインする', class: 'btn btn-primary mb-3'
+= link_to '新規登録の方はこちらへ', new_admin_user_path, class: 'text-black-50'
