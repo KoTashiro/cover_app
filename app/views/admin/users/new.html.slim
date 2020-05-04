@@ -1,8 +1,4 @@
-h1 ユーザー登録
-
-- if current_user
-  - if current_user.admin?
-    .nav.justify-content-end
-      = link_to '一覧', admin_users_path, class: 'nav-link'
-
-= render partial: 'form', locals: { user: @user }
+.container.text-black-50.bg-light.py-4.my-sm-5.shadow-sm
+  h3 ユーザー登録
+  .border-bottom.border-primary.d-block.mb-3
+  = render partial: 'form', locals: { user: @user }
