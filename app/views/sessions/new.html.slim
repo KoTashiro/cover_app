@@ -1,11 +1,24 @@
-h1 ログイン
+/ = form_with scope: :session, local: true do |f|
+/   .form-group
+/     = f.label :email, 'メールアドレス'
+/     = f.text_field :email, class: 'form-control', id: 'session_email'
+/   .form-group
+/     = f.label :password, 'パスワード'
+/     = f.password_field :password, class: 'form-control', id: 'session_password'
+/   = f.submit 'ログインする', class: 'btn btn-primary mb-3'
+/ = link_to '新規登録の方はこちらへ', new_admin_user_path, class: 'text-black-50'
 
-= form_with scope: :session, local: true do |f|
-  .form-group
-    = f.label :email, 'メールアドレス'
-    = f.text_field :email, class: 'form-control', id: 'session_email'
-  .form-group
-    = f.label :password, 'パスワード'
-    = f.password_field :password, class: 'form-control', id: 'session_password'
-  = f.submit 'ログインする', class: 'btn btn-primary mb-3'
-= link_to '新規登録の方はこちらへ', new_admin_user_path, class: 'text-black-50'
+.container.text-black-50.bg-light.py-4.my-sm-5.shadow-sm
+  h3 ログイン
+  .border-bottom.border-primary.d-block.mb-3
+  = form_with scope: :session, local: true do |f|
+    .form-group.row
+      = f.label :email, 'メールアドレス', class: 'col-md-3 col-form-label'
+      .col-md-9
+        = f.text_field :email, class: "form-control", placeholder: "メールアドレスを入力"
+    .form-group.row
+      = f.label :password,'パスワード', class: 'col-md-3 col-form-label'
+      .col-md-9
+        = f.password_field :password, class: "form-control mb-2", placeholder: "パスワードを入力"
+    = f.submit 'ログインする >>', class: 'btn btn-primary mb-3'
+  = link_to '新規登録の方はこちら', new_admin_user_path, class: 'text-black-50'
