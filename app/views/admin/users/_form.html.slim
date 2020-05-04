@@ -4,22 +4,26 @@
       li = message
 
 = form_with model: [:admin, @user], local: true do |f|
-  .form-group
-    = f.label :name, 'お名前(保護者)'
-    = f.text_field :name, class: 'form-control'
-  .form-group
-    = f.label :email, 'メールアドレス'
-    = f.text_field :email, class: 'form-control'
+  .form-group.row
+    = f.label :name, 'お名前(保護者)', class: 'col-md-3 col-form-label'
+    .col-md-9
+      = f.text_field :name, class: 'form-control'
+  .form-group.row
+    = f.label :email, 'メールアドレス', class: 'col-md-3 col-form-label'
+    .col-md-9
+      = f.text_field :email, class: 'form-control'
   - if current_user
     - if current_user.admin?
       .form-check
         = f.label :admin, class: 'form-check-label'
           = f.check_box :admin, class: 'form-check-input'
           | 管理者権限
-  .form-group
-    = f.label :password, 'パスワード'
-    = f.password_field :password, class: 'form-control'
-  .form-group
-    = f.label :password_confirmation, 'パスワード（確認）'
-    = f.password_field :password_confirmation, class: 'form-control'
+  .form-group.row
+    = f.label :password, 'パスワード', class: 'col-md-3 col-form-label'
+    .col-md-9
+      = f.password_field :password, class: 'form-control'
+  .form-group.row
+    = f.label :password_confirmation, 'パスワード（確認）', class: 'col-md-3 col-form-label'
+    .col-md-9
+      = f.password_field :password_confirmation, class: 'form-control'
   = f.submit '登録する', class: 'btn btn-primary'
