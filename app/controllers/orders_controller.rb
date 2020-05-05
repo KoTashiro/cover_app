@@ -13,9 +13,8 @@ class OrdersController < ApplicationController
 
   def create
     @order = current_user.orders.new(order_params)
-    
     if @order.save
-      redirect_to orders_url, notice: "オーダー 「#{@order.name}」を登録しました。"
+      redirect_to orders_url, notice: "オーダー 「#{@order.child_name}」を登録しました。"
     else
       render :new
     end
@@ -29,7 +28,7 @@ class OrdersController < ApplicationController
     @order = current_user.orders.find(params[:id])
 
     if @order.update(order_params)
-      redirect_to orders_url, notice: "オーダー 「#{@order.name}」を更新しました"
+      redirect_to orders_url, notice: "オーダー 「#{@order.child_name}」を更新しました"
     else
       render :edit
     end
@@ -38,12 +37,12 @@ class OrdersController < ApplicationController
   def destroy
     order = current_user.orders.find(params[:id])
     order.destroy
-    redirect_to orders_url, notice: "オーダー「#{order.name}」を削除しました。"
+    redirect_to orders_url, notice: "オーダー「#{order.child_name}」を削除しました。"
   end
 
   private
 
   def order_params
-    params.require(:order).permit(:name,:description)
+    params.require(:order).permit(:child_name,:ruby_name,:need_ruby,:need_space,:thread_color,:font_name)
   end
 end
