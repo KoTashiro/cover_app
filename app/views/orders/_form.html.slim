@@ -1,0 +1,73 @@
+  - if @order.errors.present?
+    ul#error_explanation
+      - @order.errors.full_messages.each do | message |
+        li = message
+  = form_with model: @order, local: true do |f|
+    form-group.row
+      = f.label :お子様のお名前, class: "col-sm-3 col-form-label", for: "inputChild"
+      .col-sm-9
+        = f.text_field :child_name, class: "form-control mb-2", id: "inputChild"
+    .form-group.row
+      = f.label :ふりがな, class: "col-sm-3 col-form-label", for: "inputRuby"
+      .col-sm-9
+        = f.text_field :ruby_name, class: "form-control mb-2", id: "inputRuby"
+    .form-group.row
+      .col-sm-3 オプション
+      .col-sm-9
+        .form-check
+          = f.label :need_ruby, class: "form-check-label" do
+            = f.check_box :need_ruby, class: "form-check-input mb-2"
+            | ふりがなをつける
+    .form-group.row
+      .col-sm-3 オプション
+      .col-sm-9
+        .form-check
+          = f.label :need_space, class: "form-check-label" do
+            = f.check_box :need_space, class: "form-check-input mb-2"
+            | 姓と名の間隔をあける
+    .form-group.row
+      - thread_array = []
+      - thread_array << {thread: "1114", caption: "オレンジ①"}
+      - thread_array << {thread: "1005", caption: "ピンク①"}
+      - thread_array << {thread: "1359", caption: "ピンク②"}
+      - thread_array << {thread: "9922", caption: "レッド①"}
+      - thread_array << {thread: "1060", caption: "グリーン②"}
+      - thread_array << {thread: "1403", caption: "グリーン③"}
+      - thread_array << {thread: "1106", caption: "ゴールド①"}
+      - thread_array << {thread: "1031", caption: "シルバー①"}
+      - thread_array << {thread: "1141", caption: "グレー①"}
+      - thread_array << {thread: "1809", caption: "パープル①"}
+      - thread_array << {thread: "1128", caption: "パープル②"}
+      - thread_array << {thread: "1246", caption: "ブルー①"}
+      - thread_array << {thread: "1505", caption: "ブルー②"}
+      - thread_array << {thread: "1508", caption: "ブルー③"}
+      - thread_array << {thread: "1509", caption: "ブルー④"}
+      - thread_array << {thread: "1044", caption: "ブルー⑤"}
+      javascript:
+        $(function(){
+          $('#select-thread').change(function() {
+            var text = $(this).val();
+            $('#pic-imagei').attr('src', "/images/" + text + ".png" )
+            console.log("/images/" + text + ".png")
+          });
+          $('#select-font').change(function() {
+            var text = $(this).val();
+            $('#pic-image2').attr('src', "/images/" + text + ".png" )
+            console.log("/images/" + text + ".png")
+          });
+        });
+      = f.label :糸色, class: "col-sm-3 col-form-label"
+      .col-sm-9
+        = f.select :thread_color, options_for_select(thread_array.map{|c|[c [:caption], c[:thread]]},@order.thread_color), {}, {class: 'form-control', id: 'select-thread'}
+        - tmp_thread = @order.thread_color ||= "1114"
+        = image_tag "/images/#{tmp_thread}.png", id: 'pic-imagei', class: 'py-2 image-thumbnail'
+    .form-group.row
+      = f.label :書体, class: "col-sm-3 col-form-label"
+      .col-sm-9
+        = f.select :font_name, ['楷書','行書','明朝','丸ゴシック','ゴシック'], {}, { class: 'form-control', id: 'select-font' }
+        - tmp_font = @order.font_name ||= "楷書"
+        = image_tag "/images/#{tmp_font}.png", id: 'pic-image2', class: 'py-2 image-thumbnail' 
+    .form-group.row
+      .col-sm-3
+        = f.submit '登録する', class: 'btn btn-primary mr-3'
+        = link_to  '戻る', orders_path, class: 'btn btn-outline-primary'

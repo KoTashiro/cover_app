@@ -23,7 +23,7 @@ html
           - else
             li = link_to 'ログイン', login_path, class: 'nav-link m-0'
   - if flash.notice.present?
-    .alert.alert-success.text-center= flash.notice
+    .alert.alert-success.mb-0.text-center= flash.notice
   = yield
   footer class="py-4 bg-dark text-light"
     .container.text-center

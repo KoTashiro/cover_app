@@ -26,9 +26,9 @@
 .container
   .row.text-black-50.text-left
     .col-md-8.offset-md-2.py-2
-      h1.py-3.text-center
+      h1.py-2.text-center
         | 受付の状況
-      = link_to '新規登録', new_order_path, class: 'btn btn-primary'
+      = link_to '新規登録', new_order_path, class: 'btn btn-primary mb-3'
       - @orders.each do |order|
         table.table.text-black-50
           thead.thead-light
@@ -36,7 +36,15 @@
             th = "#{order.id}"
           tr
             td 現在の状況
-            td = "###"
+            - if order.finished_flag
+              td
+                span.badge.badge-success 仕上がり
+            - elsif order.working_flag
+              td
+                span.badge.badge-warning 刺繍中
+            - else
+              td
+                span.badge.badge-danger 受付済
           tr
             td 刺繍するお名前
             td = "#{order.child_name}"
@@ -60,4 +68,7 @@
             td = image_tag "/images/#{order.font_name}.png", class: 'py-2 image'
           tr
             td
-            td = link_to '取消', order, class: 'btn btn-danger', method: :delete, data: { confirm: 'この予約取消しますか？' }
+            td
+              = link_to '取消', order, class: 'btn btn-danger mr-2', method: :delete, data: { confirm: 'この予約取消しますか？' }
+              = link_to '更新', edit_order_path(order), class: 'btn btn-danger'
+          tr.mb-3
