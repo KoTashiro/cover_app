@@ -1,18 +1,12 @@
 class Order < ApplicationRecord
-  before_validation :set_nameless_name
-  validates :name, presence: true
-  validates :name, length: { maximum: 30 }
+  validates :child_name, presence: true
   validate :validate_name_not_including_comma
 
   belongs_to :user
 
   private
 
-  def set_nameless_name
-    self.name = '名前なし' if name.blank?
-  end
-
   def validate_name_not_including_comma
-    errors.add(:name, 'にカンマを含めることはできません') if name&.include?(',')
+    errors.add(:child_name, 'にカンマを含めることはできません') if child_name&.include?(',')
   end
 end
