@@ -1,74 +1,94 @@
-/ h1 タスク一覧
-
-/ = link_to '新規登録', new_order_path, class: 'btn btn-primary'
-/ - if current_user.admin?
-/   = link_to 'ユーザー一覧', admin_users_path, class: 'btn btn-primary'
-/   = link_to 'オーダー一覧', orders_path, class: 'btn btn-primary'
-/ - else
-/   = link_to 'ユーザ情報更新', edit_admin_user_path(current_user.id), class: 'btn btn-primary'
-
-/ .mb-3
-/ table.table.table-hover
-/   thead.thead-default
-/     tr
-/       th = Order.human_attribute_name(:name)
-/       th = Order.human_attribute_name(:created_at)
-/       th
-/   tbody
-/     - @orders.each do |order|
-/       tr
-/         td = link_to order.name, order
-/         td = order.created_at
-/         td
-/             = link_to '編集', edit_order_path(order), class: 'btn btn-primary mr-3'
-/             = link_to '削除', order , method: :delete, data: { confirm: "オーダー「#{order.name}」を削除します。よろしいですか？"}, class: 'btn btn-danger'
-
-.container
-  .row.text-black-50.text-left
-    .col-md-8.offset-md-2.py-2
-      h1.py-2.text-center
-        | 受付の状況
-      = link_to '新規登録', new_order_path, class: 'btn btn-primary mb-3'
-      - @orders.each do |order|
-        table.table.text-black-50
-          thead.thead-light
-            th 受付番号
-            th = "#{order.id}"
-          tr
-            td 現在の状況
-            - if order.finished_flag
+- if current_user.admin?
+  .container
+    .row.text-black-50
+      .col-12
+        h3.py-2.text-center
+          | オーダー一覧
+        .mb-3 = link_to 'ユーザー一覧', admin_users_path, class: 'btn btn-primary'
+        table.table.table-hover
+          thead.thead-default
+            tr
+              th 受付番号
+              th 状況
+              th 名前
+              th ふりがな
+              th 間隔
+              th 糸番
+              th 書体
+              th
+          tbody
+            - @orders.each do |order|
+              tr
+                td = order.id
+                - if order.finished_flag
+                  td
+                    span.badge.badge-success 仕上がり
+                - elsif order.working_flag
+                  td
+                    span.badge.badge-warning 刺繍中
+                - else
+                  td
+                    span.badge.badge-danger 受付済
+                td = order.child_name
+                - if order.need_ruby
+                  td = order.ruby_name
+                - else
+                  td ふりがななし
+                - if order.need_space
+                  td 間隔を開ける
+                - else
+                  td 間隔を開けない
+                td = order.thread_color
+                td = order.font_name
+                td
+                  = link_to '編集', edit_admin_user_path(order.user), class: 'btn btn-primary btn-danger'
+- else
+  .container
+    .row.text-black-50.text-left
+      .col-md-8.offset-md-2.py-2
+        h1.py-2.text-center
+          | 受付の状況
+        = link_to '新規登録', new_order_path, class: 'btn btn-primary mb-3'
+        - @orders.each do |order|
+          table.table.text-black-50
+            thead.thead-light
+              th 受付番号
+              th = "#{order.id}"
+            tr
+              td 現在の状況
+              - if order.finished_flag
+                td
+                  span.badge.badge-success 仕上がり
+              - elsif order.working_flag
+                td
+                  span.badge.badge-warning 刺繍中
+              - else
+                td
+                  span.badge.badge-danger 受付済
+            tr
+              td 刺繍するお名前
+              td = "#{order.child_name}"
+            tr
+              td ふりがな
+              - if order.need_ruby
+                td = "#{order.ruby_name}"
+              - else
+                td ふりがななし
+            tr
+              td 姓と名の間隔
+              - if order.need_space
+                td 間隔を開ける
+              - else
+                td 間隔を開けない
+            tr
+              td 糸色
+              td = image_tag "/images/#{order.thread_color}.png", class: 'py-2 image'
+            tr
+              td 書体
+              td = image_tag "/images/#{order.font_name}.png", class: 'py-2 image'
+            tr
               td
-                span.badge.badge-success 仕上がり
-            - elsif order.working_flag
               td
-                span.badge.badge-warning 刺繍中
-            - else
-              td
-                span.badge.badge-danger 受付済
-          tr
-            td 刺繍するお名前
-            td = "#{order.child_name}"
-          tr
-            td ふりがな
-            - if order.need_ruby
-              td = "#{order.ruby_name}"
-            - else
-              td ふりがななし
-          tr
-            td 姓と名の間隔
-            - if order.need_space
-              td 間隔を開ける
-            - else
-              td 間隔を開けない
-          tr
-            td 糸色
-            td = image_tag "/images/#{order.thread_color}.png", class: 'py-2 image'
-          tr
-            td 書体
-            td = image_tag "/images/#{order.font_name}.png", class: 'py-2 image'
-          tr
-            td
-            td
-              = link_to '取消', order, class: 'btn btn-danger mr-2', method: :delete, data: { confirm: 'この予約取消しますか？' }
-              = link_to '更新', edit_order_path(order), class: 'btn btn-danger'
-          tr.mb-3
+                = link_to '取消', order, class: 'btn btn-danger mr-2', method: :delete, data: { confirm: 'この予約取消しますか？' }
+                = link_to '更新', edit_order_path(order), class: 'btn btn-danger'
+            tr.mb-3
