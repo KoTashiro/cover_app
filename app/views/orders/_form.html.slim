@@ -67,6 +67,21 @@
         = f.select :font_name, ['楷書','行書','明朝','丸ゴシック','ゴシック'], {}, { class: 'form-control', id: 'select-font' }
         - tmp_font = @order.font_name ||= "楷書"
         = image_tag "/images/#{tmp_font}.png", id: 'pic-image2', class: 'py-2 image-thumbnail' 
+    - if current_user.admin?
+      .form-group.row
+        .col-sm-3 刺繍中
+        .col-sm-9
+          .form-check
+            = f.label :working_flag, class: "form-check-label" do
+              = f.check_box :working_flag, class: "form-check-input mb-2"
+              | 刺繍中にする
+      .form-group.row
+        .col-sm-3 仕上がり
+        .col-sm-9
+          .form-check
+            = f.label :finished_flag, class: "form-check-label" do
+              = f.check_box :finished_flag, class: "form-check-input mb-2"
+              | 仕上がりにする
     .form-group.row
       .col-sm-3
         = f.submit '登録する', class: 'btn btn-primary mr-3'
