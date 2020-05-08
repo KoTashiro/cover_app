@@ -54,7 +54,7 @@
           | 受付の状況
         = link_to '新規登録', new_order_path, class: 'btn btn-primary mb-3'
         - @orders.each do |order|
-          table.table.text-black-50
+          table.table.text-black-50.shadow
             thead.thead-light
               th 受付番号
               th = "#{order.id}"
@@ -86,10 +86,10 @@
                 td 間隔を開けない
             tr
               td 糸色
-              td = image_tag "/images/#{order.thread_color}.png", class: 'py-2 image'
+              td = image_tag "#{order.thread_color}.png", class: 'py-2 image', height: 100
             tr
               td 書体
-              td = image_tag "/images/#{order.font_name}.png", class: 'py-2 image'
+              td = image_tag "#{order.font_name}.png", class: 'py-2 image', height: 70
             tr
               td
               - if order.working_flag? || order.finished_flag?

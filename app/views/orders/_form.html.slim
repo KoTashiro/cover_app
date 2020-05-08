@@ -28,19 +28,26 @@
     .form-group.row
       javascript:
         function CB(g_id,th_num) {
-          var dst = document.getElementById("target");
+          var dst = document.getElementById("t_thread");
           dst.value = th_num
           var elements = document.getElementsByClassName("cth");
           elements = Array.from( elements ) ;
           elements.forEach(x => x.style.borderWidth = "0px");
           var set = document.getElementById(g_id);
           set.style.border = "solid 3px blue";
-          console.log(g_id)
-
+        };
+        function DB(g_id,th_num) {
+          var dst = document.getElementById("t_font");
+          dst.value = th_num
+          var elements = document.getElementsByClassName("cfo");
+          elements = Array.from( elements ) ;
+          elements.forEach(x => x.style.borderWidth = "0px");
+          var set = document.getElementById(g_id);
+          set.style.border = "solid 3px blue";
         };
       = f.label :thread_color, '糸色', class: "col-sm-3 col-form-label"
       .col-sm-9
-        = f.text_field :thread_color, class: "form-control mb-2" ,id: "target", readonly: true, value: "1114"
+        = f.text_field :thread_color, class: "form-control mb-2" ,id: "t_thread", readonly: true
         .d-flex.flex-wrap
           .text-center.img-thumbnail.bg-light = image_tag '1114.png', height: "80", id: "i00", onclick: "CB(this.id,1114)", class: "cth"
           .text-center.img-thumbnail.bg-light = image_tag '1005.png', height: "80", id: "i01", onclick: "CB(this.id,1005)", class: "cth"
@@ -58,11 +65,15 @@
           .text-center.img-thumbnail.bg-light = image_tag '1508.png', height: "80", id: "i13", onclick: "CB(this.id,1508)", class: "cth"
           .text-center.img-thumbnail.bg-light = image_tag '1509.png', height: "80", id: "i14", onclick: "CB(this.id,1509)", class: "cth"
     .form-group.row
-      = f.label :書体, class: "col-sm-3 col-form-label"
+      = f.label :font_name, '書体', class: "col-sm-3 col-form-label"
       .col-sm-9
-        = f.select :font_name, ['楷書','行書','明朝','丸ゴシック','ゴシック'], {}, { class: 'form-control', id: 'select-font' }
-        - tmp_font = @order.font_name ||= "楷書"
-        = image_tag "/images/#{tmp_font}.png", id: 'pic-image2', class: 'py-2 image-thumbnail' 
+        = f.text_field :font_name, class: "form-control mb-2" ,id: "t_font", readonly: true
+        .d-flex.flex-wrap
+          .text-center.img-thumbnail.bg-light = image_tag '楷書.png', height: "80", id: "r00", onclick: "DB(this.id,'楷書')", class: "cfo"
+          .text-center.img-thumbnail.bg-light = image_tag '行書.png', height: "80", id: "r01", onclick: "DB(this.id,'行書')", class: "cfo"
+          .text-center.img-thumbnail.bg-light = image_tag '明朝.png', height: "80", id: "r02", onclick: "DB(this.id,'明朝')", class: "cfo"
+          .text-center.img-thumbnail.bg-light = image_tag '丸ゴシック.png', height: "80", id: "r03", onclick: "DB(this.id,'丸ゴシック')", class: "cfo"
+          .text-center.img-thumbnail.bg-light = image_tag 'ゴシック.png', height: "80", id: "r04", onclick: "DB(this.id,'ゴシック')", class: "cfo"
     - if current_user.admin?
       .form-group.row
         .col-sm-3 刺繍中
