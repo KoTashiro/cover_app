@@ -1,5 +1,7 @@
 class Order < ApplicationRecord
   validates :child_name, presence: true
+  validates :thread_color, presence: true
+  validates :font_name, presence: true
   validate :validate_name_not_including_comma
 
   belongs_to :user
