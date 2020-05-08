@@ -26,41 +26,37 @@
             = f.check_box :need_space, class: "form-check-input mb-2"
             | 姓と名の間隔をあける
     .form-group.row
-      - thread_array = []
-      - thread_array << {thread: "1114", caption: "オレンジ①"}
-      - thread_array << {thread: "1005", caption: "ピンク①"}
-      - thread_array << {thread: "1359", caption: "ピンク②"}
-      - thread_array << {thread: "9922", caption: "レッド①"}
-      - thread_array << {thread: "1060", caption: "グリーン②"}
-      - thread_array << {thread: "1403", caption: "グリーン③"}
-      - thread_array << {thread: "1106", caption: "ゴールド①"}
-      - thread_array << {thread: "1031", caption: "シルバー①"}
-      - thread_array << {thread: "1141", caption: "グレー①"}
-      - thread_array << {thread: "1809", caption: "パープル①"}
-      - thread_array << {thread: "1128", caption: "パープル②"}
-      - thread_array << {thread: "1246", caption: "ブルー①"}
-      - thread_array << {thread: "1505", caption: "ブルー②"}
-      - thread_array << {thread: "1508", caption: "ブルー③"}
-      - thread_array << {thread: "1509", caption: "ブルー④"}
-      - thread_array << {thread: "1044", caption: "ブルー⑤"}
       javascript:
-        $(function(){
-          $('#select-thread').change(function() {
-            var text = $(this).val();
-            $('#pic-imagei').attr('src', "/images/" + text + ".png" )
-            console.log("/images/" + text + ".png")
-          });
-          $('#select-font').change(function() {
-            var text = $(this).val();
-            $('#pic-image2').attr('src', "/images/" + text + ".png" )
-            console.log("/images/" + text + ".png")
-          });
-        });
-      = f.label :糸色, class: "col-sm-3 col-form-label"
+        function CB(g_id,th_num) {
+          var dst = document.getElementById("target");
+          dst.value = th_num
+          var elements = document.getElementsByClassName("cth");
+          elements = Array.from( elements ) ;
+          elements.forEach(x => x.style.borderWidth = "0px");
+          var set = document.getElementById(g_id);
+          set.style.border = "solid 3px blue";
+          console.log(g_id)
+
+        };
+      = f.label :thread_color, '糸色', class: "col-sm-3 col-form-label"
       .col-sm-9
-        = f.select :thread_color, options_for_select(thread_array.map{|c|[c [:caption], c[:thread]]},@order.thread_color), {}, {class: 'form-control', id: 'select-thread'}
-        - tmp_thread = @order.thread_color ||= "1114"
-        = image_tag "/images/#{tmp_thread}.png", id: 'pic-imagei', class: 'py-2 image-thumbnail'
+        = f.text_field :thread_color, class: "form-control mb-2" ,id: "target", readonly: true, value: "1114"
+        .d-flex.flex-wrap
+          .text-center.img-thumbnail.bg-light = image_tag '1114.png', height: "80", id: "i00", onclick: "CB(this.id,1114)", class: "cth"
+          .text-center.img-thumbnail.bg-light = image_tag '1005.png', height: "80", id: "i01", onclick: "CB(this.id,1005)", class: "cth"
+          .text-center.img-thumbnail.bg-light = image_tag '1359.png', height: "80", id: "i02", onclick: "CB(this.id,1359)", class: "cth"
+          .text-center.img-thumbnail.bg-light = image_tag '9922.png', height: "80", id: "i03", onclick: "CB(this.id,9922)", class: "cth"
+          .text-center.img-thumbnail.bg-light = image_tag '1060.png', height: "80", id: "i04", onclick: "CB(this.id,1060)", class: "cth"
+          .text-center.img-thumbnail.bg-light = image_tag '1403.png', height: "80", id: "i05", onclick: "CB(this.id,1403)", class: "cth"
+          .text-center.img-thumbnail.bg-light = image_tag '1106.png', height: "80", id: "i06", onclick: "CB(this.id,1106)", class: "cth"
+          .text-center.img-thumbnail.bg-light = image_tag '1031.png', height: "80", id: "i07", onclick: "CB(this.id,1031)", class: "cth"
+          .text-center.img-thumbnail.bg-light = image_tag '1141.png', height: "80", id: "i08", onclick: "CB(this.id,1141)", class: "cth"
+          .text-center.img-thumbnail.bg-light = image_tag '1809.png', height: "80", id: "i09", onclick: "CB(this.id,1809)", class: "cth"
+          .text-center.img-thumbnail.bg-light = image_tag '1128.png', height: "80", id: "i10", onclick: "CB(this.id,1128)", class: "cth"
+          .text-center.img-thumbnail.bg-light = image_tag '1246.png', height: "80", id: "i11", onclick: "CB(this.id,1246)", class: "cth"
+          .text-center.img-thumbnail.bg-light = image_tag '1505.png', height: "80", id: "i12", onclick: "CB(this.id,1505)", class: "cth"
+          .text-center.img-thumbnail.bg-light = image_tag '1508.png', height: "80", id: "i13", onclick: "CB(this.id,1508)", class: "cth"
+          .text-center.img-thumbnail.bg-light = image_tag '1509.png', height: "80", id: "i14", onclick: "CB(this.id,1509)", class: "cth"
     .form-group.row
       = f.label :書体, class: "col-sm-3 col-form-label"
       .col-sm-9
