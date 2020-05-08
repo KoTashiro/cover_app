@@ -86,12 +86,10 @@
                 td 間隔を開けない
             tr
               td 糸色
-              td #{order.thread_color}
-              / td = image_tag "#{order.thread_color}.png", class: 'py-2 image', height: 100
+              td = image_tag "#{order.thread_color}.png", class: 'py-2 image', height: 100
             tr
               td 書体
-              td #{order.font_name}
-              / td = image_tag "#{order.font_name}.png", class: 'py-2 image', height: 70
+              td = image_tag "#{order.font_name}.png", class: 'py-2 image', height: 70
             tr
               td
               - if order.working_flag? || order.finished_flag?
